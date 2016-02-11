@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en_US">
+<head>
+	<meta charset="UTF-8" />
+	<title>Ajax - Nutrition Table</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script src="js/moment.js"></script>
+	<link href="css/styles.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body>
+	<div class="container">
+		<h1>RSS feed</h1>
+		<p>Exercise: Example News Feed</p>
+			<ul>
+				<li>Use AJAX (via the raw JS API or jQuery) to load the file into your page.</li>
+				<li>Create a &lt;h1&gt; with the title of the RSS feed.</li>
+    			<li>Create a &lt;ul&gt;, For each &lt;item&gt;, create a &lt;li&gt; which contains the title and date of the post, and is linked to the post.</li>
+    			<li>Bonus: Use moment.js to pretty-print the date posted ("3 hours ago"). </li>
+			</ul>
+    	</p>
+		<div id="results"></div>
+		<script type="text/javascript">
+
+			$(document).ready(function(){
+				//console.log(moment().format("hh"));
+				$.ajax({
+					type: "GET",
+					url: "rss.xml",
+					datatype: "xml",
+					success: function(xmlData){
+						//console.log('AJAX Request is succeded.' + xmlData);
+						var html = '';
+						
+						// jQuery goes here
+						$(xmlData).find("channel").each(function(){
+							html += '<div class="channel">';
+							html += '<img src="'+ $(this).find("image").find("url").text() +'" align="left" />';
+							html += '<h1>';
+							html += $(this).find("title").eq(0).text();
+							html += '</h1>';
+							html += '<p>' + $(this).find("description").eq(0).text() + '</p>';
+							html += '<a href="'+ $(this).find("link").eq(0).text() +'"> View &raquo; </a>';
+							html+= '<br clear="all" />';
+							html+= '<ul class="item">';
+							$(this).find("item").each(function(){	
+								var pubDateDist = moment($(this).find("pubDate").text(), "d, MMM YYYY h:mm:ss").fromNow();						
+								html+= '<li>';
+								html+= '<span>' + $(this).find("title").text() + '</span>  ' +  $(this).find("pubDate").text() + ' (' + pubDateDist + ')' + '<br />' +  $(this).find("description").text() + ' '  + '<a href="' + $(this).find("link").text() + '">' + 'View &raquo;' + '</a>';
+								html+= '</li>\n';
+							});
+							html+= '</ul>';
+							html += '</div>';
+						});						
+						$("#results").append(html);
+					},
+					error: function(xhr, testStatus, error) {
+	                    console.log(xhr, testStatus, error);
+	                }
+				}); 
+			});
+		</script>
+	</div>
+
+</body>
+</html>

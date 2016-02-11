@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en_US">
+<head>
+	<meta charset="UTF-8" />
+	<title>Ajax - Nutrition Table</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery-latest.js"></script> 
+	<script type="text/javascript" src="js/jquery.tablesorter.js"></script>
+	<link href="css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<div class="container">
+		<h1>Nutrition Facts</h1>
+		<p>Exercise: Nutrition Facts</p>
+		<ul>
+   			<li>Create an empty webpage.</li>
+    		<li>Download nutrition.xml from https://gist.github.com/3000322 and place in your project folder.
+    		<li>Use AJAX via jQuery or JS API to fetch the file into the page.</li>
+    		<li>Create a table. For each < food> in the XML file, create a row in the table with the food name and nutritional facts - serving size, calories, carbs.</li>
+    		<li>Bonus: Use the tablesorter jQuery plugin to make the table sortable by the nutritional facts.</li></p>
+		<div id="results"></div>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("table").tablesorter({sortList: [[0,0],[1,0]]});
+				$.ajax({
+					type: "GET",
+					url: "nutrition.xml",
+					datatype: "xml",
+					success: function(xmlData){
+						//console.log('AJAX Request is succeded.' + xmlData);
+
+						var foodTable = '';
+						foodTable += '<table class="data-table tablesorter">';
+						foodTable += '<thead><tr><th class="data-name">NAME</th><th>mfr</th><th>Servings</th><th>Calories</th><th>Total Fat</th><th>Saturated Fat</th><th>Cholesterol</th><th>Sodium</th><th>Carbohydrates</th><th>Fiber</th><th>Protein</th><th>Vitamins</th><th>Minerals</th></tr></thead> ';
+						// jQuery goes here
+						$(xmlData).find("food").each(function(){
+							foodTable += '<tr>';
+							foodTable += '<td>';
+							foodTable += $(this).find("name").text();
+							foodTable += '</td>';
+							foodTable += '<td>';
+							foodTable += $(this).find("mfr").text();
+							foodTable += '</td>';
+							foodTable += '<td>';
+							foodTable += $(this).find("serving").text() + $(this).find("serving").attr("units");
+							foodTable += '</td>';
+							foodTable += '<td>';
+							foodTable += 'Total: ' + $(this).find("calories").attr("total") + '<br />';
+							foodTable += 'Fat: ' +$(this).find("calories").attr("fat");
+							foodTable += '</td>';
+							foodTable += '<td>';
+							foodTable += $(this).find("total-fat").text();
+							foodTable += '</td>';
+							foodTable += '<td>';
+							foodTable += $(this).find("saturated-fat").text();
+							foodTable += '</td>';
+							foodTable += '<td>';
+							foodTable += $(this).find("cholesterol").text();
+							foodTable += '</td>';
+							foodTable += '<td>';
+							foodTable += $(this).find("sodium").text();
+							foodTable += '</td>';
+							foodTable += '<td>';
+							foodTable += $(this).find("carb").text();
+							foodTable += '</td>';
+							foodTable += '<td>';
+							foodTable += $(this).find("fiber").text();
+							foodTable += '</td>';
+							foodTable += '<td>';
+							foodTable += $(this).find("protein").text();
+							foodTable += '</td>';
+							foodTable += '<td>';
+							foodTable += 'A: ' + $(this).find("vitamins").find("a").text() + '<br/>';
+							foodTable += 'C: ' + $(this).find("vitamins").find("c").text();
+								
+							foodTable += '</td>';
+							foodTable += '<td>';
+							foodTable += 'CA: ' + $(this).find("minerals").find("ca").text() + '<br />';
+							foodTable += 'FE: ' + $(this).find("minerals").find("fe").text() + '<br />';
+							foodTable += '</td>';
+							foodTable += '</tr>';	
+
+						});
+						foodTable += '</table>';
+
+						$("#results").append(foodTable);
+						$("table").trigger("update");
+					}
+				});
+				
+			});
+		</script>
+	</div>
+
+</body>
+</html>

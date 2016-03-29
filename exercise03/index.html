@@ -1,0 +1,79 @@
+<html lang="en_US">
+<head>
+	<meta charset="UTF-8" />
+	<title>Ajax - Roomie Shopping List, Exercise 3</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<link href="css/styles.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body>
+	
+    <script src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+    	$( document ).ready(function() {
+    		
+    		var url = "https://spreadsheets.google.com/feeds/list/1NC2Mq70bQD2DmftGFdQ6x2uqL4bXWd98FOtUuGnYgIs/od6/public/basic?alt=json";
+    		$.getJSON(url, function(data){
+    			//console.log(data.feed.entry);
+    			$.each(data.feed.entry, function(index, value){
+    				var content = data.feed.entry[index].content.$t;
+    				var x = content.split(', ');
+    				var qty = x[0];
+    				var request = x[1];
+    				var $qty = qty.split(' ')[1];
+    				var $request = request.split(' ')[1];
+    				$('.results').append("<ul>");
+    				$('.results').append("<li>" + value.title.$t + " - " + "qty: " + $qty + ", Requested by: " + $request + " " + "</li>");
+
+    				
+    				console.log(value.title.$t);
+    				//console.log(value.content.$t);
+    				console.log($qty);
+    				console.log($request);
+    			});
+    		});
+
+    		/*$.ajax({
+    			url : url,
+    			datatype : 'json',
+    			type : 'get',
+    			cache : true,
+    			success : function(data){
+    				//console.log(data.feed.entry[0].title);
+    				//var json = $.parseJSON(data.feed.entry);  
+    				//console.log(json);
+    				
+    				$(data.feed.entry).each(function(index, value){
+    					$('.results').append(data.feed.entry[index].text);
+    						//console.log(data.feed.entry[index].title);
+    						//console.log(value.content);
+    					
+    				});
+    			}
+    		});*/
+    		
+    	   
+		});
+    </script>
+    <div class="container">
+    	<h1>Roomie Shopping List</h1>
+			<p>Exercise: Google Spreadsheet JSON List</p>
+				<ul>
+					<li>Create a new Google spreadsheet.</li>
+					<li>Add columns for “item”, “quantity”, and “requestor”.</li>
+	    			<li>Add 5 rows (whatever your fridge is missing!).</li>
+	    			<li>Publish the spreadsheet (via File->Publish as webpage). </li>
+	    			<li>Use the JSONP technique to bring the published feed into your page as JSON.</li>
+	    			<li>The URL should be of this form: https://spreadsheets.google.com/feeds/list/o03712292828507838454.2635427448373779250/od6/public/basic?alt=json-in-script&callback=listTasks <br />URL is like: http://spreadsheets.google.com/feeds/list/{SPREADSHEET_KEY}/{WORKSHEET_ID}/
+public/basic?alt=json-in-script&callback={callbackName}</li>
+
+	    			<li>The spreadsheet key is usually in the URL, the worksheet ID is always od6 for the first worksheet, and callback name is whatever your function is called.</li>
+	    			<li>Create a &lt;ul&gt; with each shopping item as an &lt;li&gt;.</li>
+	    			<li>Bonus: Use the Google Image Search API to find an image for each item. *Google Image Search has been depricated</li>
+				</ul>
+	    	</p>
+	    <div class="main-container">	    	
+	    	<div class="results"></div>
+	    </div>
+    </div>
+  </body>
+</html>

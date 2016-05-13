@@ -1,0 +1,24 @@
+/* reset */
+* {margin:0; padding:0;}
+body {background-color:#ddd; font-family:Arial; font-size:14px; line-height:1.4; }
+
+.container {margin:50px auto; width: 90%; max-width: 1000px;}
+
+.main-container {padding: 40px; background-color: #fff; margin: 40px auto;}
+	h1 {line-height: 1;}
+	ul {margin: 20px;}
+	ul,p  {line-height:1.8;}
+	ul.items  {margin: 40px; list-style-type: none;}
+	ul.items li {margin:20px auto; }
+   ul.items li span {font-weight: bold; display: block;}
+   ul.items li img {float: left; display: block; margin: 4px;}
+   ul.items .sitdown {color: #8c7b6b;}
+	ul.items .bar {color: #453423;}
+
+table.data-table {background-color:#fff; margin:50px  auto ; width: 100%;}
+table.data-table th  {background-color:#eee; font-size: 10px;}
+table.data-table td  {font-size:12px;}
+table.data-table th, table.data-table td  {padding:4px 8px; word-break: break-word;}
+table.data-table tr:nth-child(2n) {background-color: #efefef;}
+table.data-table tr {background-color: #fafafa;}
+th.data-name {width: 100px;}

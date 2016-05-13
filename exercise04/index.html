@@ -1,0 +1,55 @@
+<html lang="en_US">
+<head>
+   <meta charset="UTF-8" />
+   <title>Ajax - Seattle Restaurants, Exercise 4</title>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+   <link href="css/styles.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body>
+   
+    <script type="text/javascript">
+      $( document ).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "restaurants.xml",
+          dataType: "xml",
+          success: function(xml){            
+            $(".results").append("<ul class='items'>");
+            $(xml).find('restaurant').each(function(){
+              var name = $(this).attr('name');
+              var address = $(this).attr('address');
+              var type = $(this).attr('type');
+              var lat = $(this).attr('lat');
+              var lng = $(this).attr('lng'); 
+              
+              $(".results ul").append("<li class='item'><img src='images/icon_" + type + ".png' />" + name + "<br />" + "<a href='http://maps.google.com/maps?z=12&t=m&q=loc:+" + lat + "+" + lng + "' target='_blank' class='" + type + "'>" + address + "</a></li>");
+
+            });
+            
+          },
+          error: function(data, error){
+            alert("There was an error processing the XML Data" + data);
+          }
+
+        });
+         
+         
+      });
+    </script>
+    <div class="container">
+      <h1>Seattle Restaurants List</h1>
+         <p>Exercise: Restaurants XML List</p>
+            <ul>
+               <li>Create an empty webpage.</li>
+               <li>Download the XML file at https://gist.github.com/3000348 and store in your project folder.</li>
+               <li>Create a &lt;ul&gt;. For each &lt;restaurant&gt;, create an &lt;li&gt; with the name and address of the restaurant. Change the color of the text depending on the type of the restaurant (“sitdown” or “bar”).</li>
+               <li>Link each address to Google Maps.</li>
+               
+            </ul>
+         </p>
+       <div class="main-container">       
+         <div class="results"></div>
+       </div>
+    </div>
+  </body>
+</html>

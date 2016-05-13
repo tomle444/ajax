@@ -41,7 +41,7 @@
 							html += '<p>' + $(this).find("description").eq(0).text() + '</p>';
 							html += '<a href="'+ $(this).find("link").eq(0).text() +'"> View &raquo; </a>';
 							html+= '<br clear="all" />';
-							html+= '<ul class="item">';
+							html+= '<ul class="items">';
 							$(this).find("item").each(function(){	
 								var pubDateDist = moment($(this).find("pubDate").text(), "d, MMM YYYY h:mm:ss").fromNow();						
 								html+= '<li>';

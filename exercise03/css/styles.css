@@ -8,9 +8,9 @@ body {background-color:#ddd; font-family:Arial; font-size:14px; line-height:1.4;
 	h1 {line-height: 1;}
 	ul {margin: 20px;}
 	ul,p  {line-height:1.8;}
-	ul.item  {margin: 40px; }
-	ul.item li {margin:20px auto; }
-	ul.item li span {font-weight: bold; display: block;}
+	ul.items  {margin: 40px; }
+	ul.items li {margin:20px auto; }
+	ul.items li span {font-weight: bold; display: block;}
 
 table.data-table {background-color:#fff; margin:50px  auto ; width: 100%;}
 table.data-table th  {background-color:#eee; font-size: 10px;}

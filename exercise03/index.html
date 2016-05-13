@@ -14,6 +14,7 @@
     		var url = "https://spreadsheets.google.com/feeds/list/1NC2Mq70bQD2DmftGFdQ6x2uqL4bXWd98FOtUuGnYgIs/od6/public/basic?alt=json";
     		$.getJSON(url, function(data){
     			//console.log(data.feed.entry);
+                $('.results').append("<ul class='items'>");
     			$.each(data.feed.entry, function(index, value){
     				var content = data.feed.entry[index].content.$t;
     				var x = content.split(', ');
@@ -21,35 +22,17 @@
     				var request = x[1];
     				var $qty = qty.split(' ')[1];
     				var $request = request.split(' ')[1];
-    				$('.results').append("<ul>");
-    				$('.results').append("<li>" + value.title.$t + " - " + "qty: " + $qty + ", Requested by: " + $request + " " + "</li>");
+    				
+    				$('.results ul').append("<li>" + value.title.$t + " - " + "qty: " + $qty + ", Requested by: " + $request + " " + "</li>");
 
     				
-    				console.log(value.title.$t);
+    				//console.log(value.title.$t);
     				//console.log(value.content.$t);
-    				console.log($qty);
-    				console.log($request);
+    				//console.log($qty);
+    				//console.log($request);
     			});
     		});
 
-    		/*$.ajax({
-    			url : url,
-    			datatype : 'json',
-    			type : 'get',
-    			cache : true,
-    			success : function(data){
-    				//console.log(data.feed.entry[0].title);
-    				//var json = $.parseJSON(data.feed.entry);  
-    				//console.log(json);
-    				
-    				$(data.feed.entry).each(function(index, value){
-    					$('.results').append(data.feed.entry[index].text);
-    						//console.log(data.feed.entry[index].title);
-    						//console.log(value.content);
-    					
-    				});
-    			}
-    		});*/
     		
     	   
 		});
